@@ -51,7 +51,16 @@ test_race:
 	@ echo "==> Running go test --race"
 	@ go test -v -race $(PACKAGES)
 
+test_cover:
+	@ bash tests/test_cover.sh
+
 test_integrations:
+	@ echo "==> Running integration tests (./tests)"
+	@ find . -path ./vendor -prune -o -name "*.sock" -exec rm {} \;
+	# tests/test.sh requires that we run the installed cmds, must not be out of date
+	@ make install
+	@ bash tests/test.sh
+
 	@ bash test.sh
 
 fmt:
