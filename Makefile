@@ -61,8 +61,6 @@ test_integrations:
 	@ make install
 	@ bash tests/test.sh
 
-	@ bash test.sh
-
 fmt:
 	@ go fmt ./...
 
