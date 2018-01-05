@@ -51,15 +51,17 @@ test_race:
 	@ echo "==> Running go test --race"
 	@ go test -v -race $(PACKAGES)
 
+### three tests tested by Jenkins
 test_cover:
 	@ bash tests/test_cover.sh
 
-test_integrations:
-	@ echo "==> Running integration tests (./tests)"
-	@ find . -path ./vendor -prune -o -name "*.sock" -exec rm {} \;
-	# tests/test.sh requires that we run the installed cmds, must not be out of date
-	@ make install
-	@ bash tests/test.sh
+test_app:
+	# test the counter using a go test script
+	@ bash tests/test_app/test.sh
+
+test_cli:
+	# test the cli against the examples in the tutorial at tendermint.com
+	@ bash tests/test_cli/test.sh
 
 fmt:
 	@ go fmt ./...
